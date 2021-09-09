@@ -1,0 +1,10 @@
+spring:
+    datasourse:
+        url: jdbc:postgresql://localhost:5432/technolescom
+        username: ok
+        password: ok
+    jpa:
+        generate-ddl: true
+graphql:
+    packages: 
+        - "com.technoles.api"
