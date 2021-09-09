@@ -1,9 +1,8 @@
 package com.technoles.api.repository
 
-import io.micronaut.data.annotation.Repository
-import io.micronaut.data.repository.CrudRepository
-
 import com.technoles.api.model.User
+import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
 
 @Repository
 interface UserRepository : CrudRepository<User, Long>{

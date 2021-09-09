@@ -2,15 +2,22 @@ package com.technoles.api.service
 
 import com.technoles.api.model.User
 import com.technoles.api.repository.UserRepository
+import org.springframework.stereotype.Service
+import java.util.*
 
+@Service
 class UserService(
     private val repository: UserRepository
 ) {
-    fun create(name: String!) : User {
+    fun create(name: String) : User {
         return User(name).also { 
             repository.save(it)
          }
     }
+    fun update(id: Long, user: User): User = repository.save(user.copy(id = id))
+    fun delete(id: Long) = repository.deleteById(id)
 
-    fun findByNamy(name: String) : Iterable<User> = repository.findByName(name)
+    fun findAll() : Iterable<User> = repository.findAll()
+    fun findByName(name: String) : Iterable<User> = repository.findByName(name)
+    fun findById(id: Long) : Optional<User> = repository.findById(id)
 }

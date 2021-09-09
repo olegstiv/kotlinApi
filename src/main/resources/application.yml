@@ -1,10 +1,14 @@
 spring:
-    datasourse:
+    datasource:
         url: jdbc:postgresql://localhost:5432/technolescom
         username: ok
         password: ok
+        driverClassName: org.postgresql.Driver
     jpa:
         generate-ddl: true
+        hibernate:
+            ddl-auto: create
+            properties:
 graphql:
     packages: 
         - "com.technoles.api"
