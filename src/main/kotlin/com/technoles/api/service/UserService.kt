@@ -1,6 +1,7 @@
 package com.technoles.api.service
 
 import com.technoles.api.model.User
+import com.technoles.api.model.UserInput
 import com.technoles.api.repository.UserRepository
 import org.springframework.stereotype.Service
 import java.util.*
@@ -15,18 +16,17 @@ class UserService(
          }
     }
 
-    fun update(user: User): User {
-        println(user);
-        return repository.save(user.copy(name = user.name))
+    fun update(id: Long, user: UserInput): User {
+        var updateUser = repository.findById(id).get();
+        updateUser.name = user.name;
+        return repository.save(updateUser);
     }
 
     fun delete(id: Long) : Boolean {
-
         if(repository.existsById(id)) {
             repository.deleteById(id);
             return true;
         }
-        
         return false;
     }
 

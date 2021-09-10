@@ -10,6 +10,6 @@ data class User(
     var id: Long = 0,
 
     @Column(nullable = false)
-    val name: String,
+    var name: String,
 
 )
