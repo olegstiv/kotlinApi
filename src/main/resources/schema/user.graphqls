@@ -8,12 +8,13 @@ type User {
     name: String
 }
 
-input UserInput {
-    name: String!
+input UserUpdated {
+    id: ID!
+    name: String
 }
 
 type Mutation {
     createUser(name: String! ) : User!
-    deleteUser(id: ID!) : Boolean
-    updateUser(id: ID!, user: UserInput ) : User!
+    deleteUser(id: Int!) : Boolean!
+    updateUser(user: UserUpdated! ) : User!
 }

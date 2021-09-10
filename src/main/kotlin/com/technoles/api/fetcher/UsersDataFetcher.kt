@@ -2,6 +2,7 @@ package com.technoles.api.fetcher
 
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsData
+import com.netflix.graphql.dgs.InputArgument
 import com.technoles.api.service.UserService
 import com.technoles.api.model.User
 import java.util.*
@@ -29,13 +30,12 @@ class UsersDataFetcher(
     }
 
     @DgsData(parentType = "Mutation", field = "updateUser")
-    fun update(id: Long, user: User) : User{
-        val user = service.update(id, user);
-        return user;
+    fun update(user: User) : User{
+        val updateUser = service.update(user);
+        return updateUser;
     }
     @DgsData(parentType = "Mutation", field = "deleteUser")
     fun delete(id: Long) : Boolean {
-        service.delete(id);
-        return true;
+        return service.delete(id);
     }
 }
