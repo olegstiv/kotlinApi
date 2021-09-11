@@ -1,5 +1,11 @@
 package com.technoles.api.model
 
 data class UserInput(
-    var name: String
-)
+    var firstName: String,
+    var lastName: String,
+    var phone: String,
+    var email: String,
+    var companies: MutableList<Company>,
+    var role: Role?
+    ) {
+}

@@ -1,0 +1,19 @@
+extend type Query {
+    companies: [Company]
+    company(id: ID!) : Company
+}
+
+type Company {
+    id: ID!
+    name: String!
+}
+
+input CompanyInput {
+    name: String!
+}
+
+extend type Mutation {
+    createCompany(name: String!) : Company!
+    deleteCompany(id: Int!) : Boolean!
+    updateCompany(id: Int!, company: CompanyInput! ) : Company!
+}

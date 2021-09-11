@@ -1,0 +1,19 @@
+extend type Query {
+    roles: [Role]
+    role(id: ID): Role
+}
+
+type Role {
+    id: ID!,
+    name: String!
+}
+
+input RoleInput {
+    name: String!
+}
+
+extend type Mutation {
+    createRole(name: String!) : Role!
+    deleteRole(id: Int!) : Boolean!
+    updateRole(id: Int!, role: RoleInput! ) : Role!
+}
