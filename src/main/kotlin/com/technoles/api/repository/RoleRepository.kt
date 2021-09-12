@@ -1,4 +1,4 @@
-package com.technoles.api.repository;
+package com.technoles.api.repository
 
 import com.technoles.api.model.Role
 import org.springframework.data.repository.CrudRepository

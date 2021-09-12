@@ -1,14 +1,11 @@
 package com.technoles.api.model
 
+import org.hibernate.Hibernate
 import javax.persistence.*
 
 @Entity
 @Table(name = "users")
-data class User(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
-
+class User(
         @Column(nullable = false)
         var firstName: String,
 
@@ -27,5 +24,5 @@ data class User(
 
         @ManyToMany(mappedBy = "users", cascade = [CascadeType.ALL])
         var companies: MutableList<Company> = mutableListOf()
-)
-
+) : BaseEntity() {
+}

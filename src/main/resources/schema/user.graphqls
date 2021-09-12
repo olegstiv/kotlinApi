@@ -10,7 +10,7 @@ type User {
     phone: String!
     email: String!
     role: Role
-    company: [Company]
+    companies: [Company]
 }
 
 input UserInput {

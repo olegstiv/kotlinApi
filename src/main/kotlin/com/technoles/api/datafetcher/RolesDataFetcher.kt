@@ -21,11 +21,11 @@ class RolesDataFetcher(
     fun role(id: Long): Optional<Role> = service.findById(id)
 
     @DgsMutation(field = "createRole")
-    fun create(name: String): Role = service.create(name = name);
+    fun create(name: String): Role = service.create(name = name)
 
     @DgsMutation(field = "updateRole")
-    fun update(id: Long, @InputArgument role: RoleInput): Role = service.update(id, role);
+    fun update(id: Long, @InputArgument role: RoleInput): Role = service.update(id, role)
 
     @DgsMutation(field = "deleteRole")
-    fun delete(id: Long): Boolean = service.delete(id);
+    fun delete(id: Long): Boolean = service.delete(id)
 }

@@ -4,14 +4,18 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "roles")
-data class Role(
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long = 0,
-
+class Role(
         @Column(nullable = false, unique = true)
         var name: String,
 
         @OneToMany(fetch = FetchType.EAGER, mappedBy = "role", cascade = [CascadeType.ALL])
         var users: MutableList<User> = mutableListOf()
-)
+) : BaseEntity() {}
+
+
+
+
+
+
+
+

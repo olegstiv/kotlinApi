@@ -12,24 +12,24 @@ import java.util.*
 class RoleService(
         val roleRepository: RoleRepository
 ) {
-    fun findAll(): Iterable<Role> = roleRepository.findAll();
-    fun findById(id: Long): Optional<Role> = roleRepository.findById(id);
+    fun findAll(): Iterable<Role> = roleRepository.findAll()
+    fun findById(id: Long): Optional<Role> = roleRepository.findById(id)
     fun create(name: String): Role =  roleRepository.save(Role(name = name))
 
     fun update(id: Long, role: RoleInput): Role {
         if (!roleRepository.existsById(id))
-            throw NotFoundRoleException("");
+            throw NotFoundRoleException("")
 
-        val roleUpdated = roleRepository.findById(id).get();
-        roleUpdated.name = role.name;
-        return roleRepository.save(roleUpdated);
+        val roleUpdated = roleRepository.findById(id).get()
+        roleUpdated.name = role.name
+        return roleRepository.save(roleUpdated)
     }
 
     fun delete(id: Long): Boolean {
         if (!roleRepository.existsById(id))
-            throw NotFoundRoleException("");
+            throw NotFoundRoleException("")
 
-        roleRepository.deleteById(id);
-        return true;
+        roleRepository.deleteById(id)
+        return true
     }
 }

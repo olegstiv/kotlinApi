@@ -19,13 +19,9 @@ class UserService(
     private val roleRepository: RoleRepository,
 ) {
 
-    fun findAll(): Iterable<User> = userRepository.findAll();
-    fun findByFirstName(name: String): Iterable<User> = userRepository.findByFirstName(name);
-    fun findById(id: Long): Optional<User> = userRepository.findById(id);
-
-    fun getCompaniesForUser(id: Long): List<Company> {
-        return companyRepository.findByUsers_IdIs(id)
-    }
+    fun findAll(): Iterable<User> = userRepository.findAll()
+    fun findByFirstName(name: String): Iterable<User> = userRepository.findByFirstName(name)
+    fun findById(id: Long): Optional<User> = userRepository.findById(id)
 
     fun create(
         firstName: String,
@@ -43,71 +39,71 @@ class UserService(
 
     fun update(id: Long, user: UserInput): User {
         if (!userRepository.existsById(id))
-            throw NotFoundUserException("");
+            throw NotFoundUserException("")
 
-        var updateUser = userRepository.findById(id).get();
-        updateUser.firstName = user.firstName;
-        updateUser.lastName = user.lastName;
-        updateUser.email = user.email;
-        updateUser.phone = user.phone;
-        return userRepository.save(updateUser);
+        var updateUser = userRepository.findById(id).get()
+        updateUser.firstName = user.firstName
+        updateUser.lastName = user.lastName
+        updateUser.email = user.email
+        updateUser.phone = user.phone
+        return userRepository.save(updateUser)
     }
 
     fun delete(id: Long): Boolean {
         if (!userRepository.existsById(id))
-            throw NotFoundUserException("");
+            throw NotFoundUserException("")
 
-        userRepository.deleteById(id);
-        return true;
+        userRepository.deleteById(id)
+        return true
     }
 
     fun addCompany(idUser: Long, idCompany: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("");
+            throw NotFoundUserException("")
 
         if (!companyRepository.existsById(idCompany))
-            throw NotFoundCompanyException("");
+            throw NotFoundCompanyException("")
 
-        val user = findById(idUser).get();
-        val company = companyRepository.findById(idCompany).get();
-        user.companies.add(company);
-        company.users.add(user);
-        companyRepository.save(company);
-        return userRepository.save(user);
+        val user = findById(idUser).get()
+        val company = companyRepository.findById(idCompany).get()
+        user.companies.add(company)
+        company.users.add(user)
+        companyRepository.save(company)
+        return userRepository.save(user)
     }
 
     fun removeCompany(idUser: Long, idCompany: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("");
+            throw NotFoundUserException("")
 
         if (!companyRepository.existsById(idCompany))
-            throw NotFoundCompanyException("");
+            throw NotFoundCompanyException("")
 
-        val user = findById(idUser).get();
-        val company = companyRepository.findById(idCompany).get();
-        user.companies.remove(company);
-        return userRepository.save(user);
+        val user = findById(idUser).get()
+        val company = companyRepository.findById(idCompany).get()
+        user.companies.remove(company)
+        return userRepository.save(user)
     }
 
     fun setRole(idUser: Long, idRole: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("");
+            throw NotFoundUserException("")
 
-        val user = findById(idUser).get();
+        val user = findById(idUser).get()
         if (!roleRepository.existsById(idRole))
             throw NotFoundRoleException("")
 
-        user.role = roleRepository.findById(idRole).get();
-        return userRepository.save(user);
+        user.role = roleRepository.findById(idRole).get()
+        return userRepository.save(user)
     }
 
     fun removeRole(idUser: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("");
+            throw NotFoundUserException("")
 
-        val user = findById(idUser).get();
+        val user = findById(idUser).get()
 
-        user.role = null;
-        return userRepository.save(user);
+        user.role = null
+        return userRepository.save(user)
     }
 }
