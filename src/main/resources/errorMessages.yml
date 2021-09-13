@@ -1,0 +1,14 @@
+validation:
+  field:
+    phone:
+      blank: "Телефон должен быть заполнен"
+      invalidFormat: "Неправильный формат телефона"
+    email:
+      blank: "Email должен быть заполнен"
+      invalidFormat: "Неправильный формат email"
+    firstName:
+      blank: "Имя должно быть заполнено"
+    lastName:
+      blank: "Фамилия должно быть заполнено"
+    name:
+      blank: "Название должно быть заполнено"

@@ -14,8 +14,10 @@ type User {
 }
 
 input UserInput {
-    name: String!
+    firstName: String!
+    lastName: String!
     email: String!
+    phone: String!
 }
 
 type Mutation {
