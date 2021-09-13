@@ -7,25 +7,41 @@ import graphql.execution.DataFetcherExceptionHandler
 import graphql.execution.DataFetcherExceptionHandlerParameters
 import graphql.execution.DataFetcherExceptionHandlerResult
 import org.springframework.stereotype.Component
+import javax.validation.ConstraintViolationException
 
 @Component
 class CustomFetchingExceptionHandler : DataFetcherExceptionHandler {
     private val defaultHandler = DefaultDataFetcherExceptionHandler()
     override fun onException(handlerParameters: DataFetcherExceptionHandlerParameters): DataFetcherExceptionHandlerResult {
-        return if (
-            handlerParameters.exception is NotFoundRoleException ||
-            handlerParameters.exception is NotFoundUserException ||
-            handlerParameters.exception is NotFoundCompanyException
-        ) {
-            val debugInfo: MutableMap<String, Any> = HashMap()
-            val graphqlError: GraphQLError = TypedGraphQLError.INTERNAL.message("Not found value for id")
-                .debugInfo(debugInfo)
-                .path(handlerParameters.path).build()
-            DataFetcherExceptionHandlerResult.newResult()
-                .error(graphqlError)
-                .build()
-        } else {
-            defaultHandler.onException(handlerParameters)
+        val debugInfo: MutableMap<String, Any> = HashMap()
+        val message = when (handlerParameters.exception) {
+            is ConstraintViolationException -> {
+                var msg: String = "";
+                (handlerParameters.exception as ConstraintViolationException).constraintViolations.forEach() {
+                    debugInfo[it.propertyPath.toString()] = it.messageTemplate
+                    msg += (it.messageTemplate + "\n")
+                    println(it)
+                }
+                msg
+            }
+            else -> {
+                handlerParameters.exception.message
+            }
+        }
+        return when (handlerParameters.exception) {
+            is NotFoundRoleException, is NotFoundUserException, is NotFoundCompanyException, is ConstraintViolationException -> {
+                val graphqlError: GraphQLError = TypedGraphQLError.newInternalErrorBuilder()
+                        .message(message)
+                        .debugInfo(debugInfo)
+                        .path(handlerParameters.path).build()
+
+                DataFetcherExceptionHandlerResult.newResult()
+                        .error(graphqlError)
+                        .build()
+            }
+            else -> {
+                defaultHandler.onException(handlerParameters)
+            }
         }
     }
 }

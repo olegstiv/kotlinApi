@@ -18,7 +18,7 @@ class RoleService(
 
     fun update(id: Long, role: RoleInput): Role {
         if (!roleRepository.existsById(id))
-            throw NotFoundRoleException("")
+            throw NotFoundRoleException()
 
         val roleUpdated = roleRepository.findById(id).get()
         roleUpdated.name = role.name
@@ -27,7 +27,7 @@ class RoleService(
 
     fun delete(id: Long): Boolean {
         if (!roleRepository.existsById(id))
-            throw NotFoundRoleException("")
+            throw NotFoundRoleException()
 
         roleRepository.deleteById(id)
         return true

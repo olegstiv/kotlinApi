@@ -39,9 +39,9 @@ class UserService(
 
     fun update(id: Long, user: UserInput): User {
         if (!userRepository.existsById(id))
-            throw NotFoundUserException("")
+            throw NotFoundUserException()
 
-        var updateUser = userRepository.findById(id).get()
+        val updateUser = userRepository.findById(id).get()
         updateUser.firstName = user.firstName
         updateUser.lastName = user.lastName
         updateUser.email = user.email
@@ -51,7 +51,7 @@ class UserService(
 
     fun delete(id: Long): Boolean {
         if (!userRepository.existsById(id))
-            throw NotFoundUserException("")
+            throw NotFoundUserException()
 
         userRepository.deleteById(id)
         return true
@@ -59,10 +59,10 @@ class UserService(
 
     fun addCompany(idUser: Long, idCompany: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("")
+            throw NotFoundUserException()
 
         if (!companyRepository.existsById(idCompany))
-            throw NotFoundCompanyException("")
+            throw NotFoundCompanyException()
 
         val user = findById(idUser).get()
         val company = companyRepository.findById(idCompany).get()
@@ -74,10 +74,10 @@ class UserService(
 
     fun removeCompany(idUser: Long, idCompany: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("")
+            throw NotFoundUserException()
 
         if (!companyRepository.existsById(idCompany))
-            throw NotFoundCompanyException("")
+            throw NotFoundCompanyException()
 
         val user = findById(idUser).get()
         val company = companyRepository.findById(idCompany).get()
@@ -87,11 +87,11 @@ class UserService(
 
     fun setRole(idUser: Long, idRole: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("")
+            throw NotFoundUserException()
 
         val user = findById(idUser).get()
         if (!roleRepository.existsById(idRole))
-            throw NotFoundRoleException("")
+            throw NotFoundRoleException()
 
         user.role = roleRepository.findById(idRole).get()
         return userRepository.save(user)
@@ -99,7 +99,7 @@ class UserService(
 
     fun removeRole(idUser: Long): User {
         if (!userRepository.existsById(idUser))
-            throw NotFoundUserException("")
+            throw NotFoundUserException()
 
         val user = findById(idUser).get()
 

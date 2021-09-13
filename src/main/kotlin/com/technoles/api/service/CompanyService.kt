@@ -21,7 +21,7 @@ class CompanyService(
 
     fun update(id: Long, company: CompanyInput): Company {
         if (!companyRepository.existsById(id))
-            throw NotFoundCompanyException("")
+            throw NotFoundCompanyException()
         val companyUpdated = companyRepository.findById(id).get()
         companyUpdated.name = company.name
         return companyRepository.save(companyUpdated)
@@ -29,7 +29,7 @@ class CompanyService(
 
     fun delete(id: Long): Boolean {
         if (!companyRepository.existsById(id))
-            throw NotFoundCompanyException("")
+            throw NotFoundCompanyException()
 
         companyRepository.deleteById(id)
         return true
